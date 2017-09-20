@@ -183,7 +183,7 @@ class DO_Sieve {
     * @param string $script
     * @return string
     */
-    function decode_script($script) {
+    public static function decode_script($script) {
     
         global $languages, $squirrelmail_language, $default_charset;
     
