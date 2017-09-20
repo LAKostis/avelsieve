@@ -138,7 +138,7 @@ class DO_Sieve {
     * @param string $script
     * @return string
     */
-    function encode_script($script) {
+    public static function encode_script($script) {
         global $languages, $squirrelmail_language, $default_charset;
     
         /* change $default_charset to user's charset */

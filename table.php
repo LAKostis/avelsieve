@@ -74,17 +74,18 @@ sqgetGlobalVar('sieve_capabilities', $sieve_capabilities, SQ_SESSION);
     
 require_once (SM_PATH . 'plugins/avelsieve/include/constants.inc.php');
 
-if (!isset($rules)) {
+if (!isset($rules) or empty($rules)) {
     /* Login. But if the rules are cached, don't even login to SIEVE
      * Server. */ 
     $s->login();
 
     /* Actually get the script 'phpscript' (hardcoded ATM). */
     if($s->load('phpscript', $rules, $scriptinfo)) {
-        $_SESSION['rules'] = $rules;
-        $_SESSION['scriptinfo'] = $scriptinfo;
+	$_SESSION['rules'] = $rules;
+	$_SESSION['scriptinfo'] = $scriptinfo;
     }
 }
+
 
 // unset($sieve->response);
 // TODO
@@ -120,7 +121,7 @@ if ($logout) {
             $s->delete('phpscript');
         } */
     }
-    session_unregister('rules');
+    unset($_SESSION['rules']);
     
     header("Location: $location/../../src/options.php\n\n");
     // header("Location: $location/../../src/options.php?optpage=avelsieve\n\n");
@@ -364,7 +365,7 @@ if($modifyEnable) {
 if (isset($_SESSION['returnnewrule'])) {
     /* There is a new rule to be added */
     $newrule = $_SESSION['returnnewrule'];
-    session_unregister('returnnewrule');
+    unset($_SESSION['returnnewrule']);
     $rules[] = $newrule;
     $haschanged = true;
 }
